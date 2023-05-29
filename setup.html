@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+      integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+      integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+      crossorigin=""
+    ></script>
+    <style>
+      * {
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+          sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+        font-size: 100%;
+        color: inherit;
+        border: none;
+      }
+      div {
+        position: absolute;
+        inset: 0;
+      }
+      a {
+        position: absolute;
+        inset: 0;
+        cursor: pointer;
+      }
+      form {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        gap: 2rem;
+        flex-direction: column;
+        padding: 5rem;
+      }
+      label {
+        font-size: 1.5em;
+      }
+      input {
+        padding: 0.8rem 1rem;
+        border: 1px solid #808080;
+        border-radius: 0.5rem;
+      }
+      .btn-submit,
+      .btn-cancel {
+        padding: 1rem;
+        border-radius: 0.75rem;
+        background-color: #059669;
+        color: white;
+        cursor: pointer;
+      }
+      .btn-cancel {
+        background-color: #b91c1c;
+      }
+    </style>
+    <title>Où suis-je</title>
+  </head>
+  <body>
+    <div>
+      <form action="" method="post" enctype="multipart/form-data">
+        <label for="latitude">Latitude</label>
+        <input type="text" name="latitude" id="latitude" />
+        <label for="longitude">Longitude</label>
+        <input type="text" name="longitude" id="longitude" />
+        <label for="message">Message</label>
+        <input type="text" name="message" id="message" />
+        <button type="submit" class="btn-submit">Send</button>
+        <button type="submit" class="btn-cancel" formmethod="get" formaction="/ou-suis-je/">Cancel</button>
+      </form>
+    </div>
+  </body>
+  <script>
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        document.getElementById('latitude').value = position.coords.latitude;
+        document.getElementById('longitude').value = position.coords.longitude;
+      },
+      positionError => {
+        console.error(positionError);
+      },
+      { enableHighAccuracy: true }
+    );
+  </script>
+</html>
